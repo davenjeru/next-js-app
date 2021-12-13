@@ -9,8 +9,8 @@ const HomePage: FC<InferGetServerSidePropsType<typeof getStaticProps>> = (props)
 }
 
 export async function getStaticProps() {
-  const {AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
-  const encodedCredentials = `${encodeURIComponent(AWS_ACCESS_KEY_ID!)}:${encodeURIComponent(AWS_SECRET_ACCESS_KEY!)}`
+  const {MONGO_AWS_ACCESS_KEY_ID, MONGO_AWS_SECRET_ACCESS_KEY} = process.env
+  const encodedCredentials = `${encodeURIComponent(MONGO_AWS_ACCESS_KEY_ID!)}:${encodeURIComponent(MONGO_AWS_SECRET_ACCESS_KEY!)}`
   const uri = `mongodb+srv://${encodedCredentials}@cluster0.yxca3.mongodb.net/meetups?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority`;
 
   const client = await MongoClient.connect(uri);
