@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: meetupIds.map(m => ({params: {meetupId: m._id.toString()}})),
-    fallback: false
+    fallback: 'blocking'
   }
 }
 
@@ -40,7 +40,8 @@ export const getStaticProps: GetStaticProps<IMeetup, IMeetupDetailParams> = asyn
   const meetup = await meetupsCollection.findOne({_id: new ObjectId(meetupId)})
   await client.close()
   return ({
-    props: {...meetup!, id: meetup!._id.toString(), _id: null}
+    props: {...meetup!, id: meetup!._id.toString(), _id: null},
+    revalidate: 60
   });
 };
 
